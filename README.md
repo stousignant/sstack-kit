@@ -50,7 +50,9 @@ GITLEAKS_BINARY=/path/to/gitleaks python3 scripts/check_secrets.py --history
 GITLEAKS_BINARY=/path/to/gitleaks python3 -m unittest discover -s tests -v
 ```
 
-The documentation check enforces the [catalog's authoring contract](blueprints/README.md), catalog coverage, and local file links. It supports inline and explicit reference links, fenced/inline code, and public-looking HTTPS targets; ambiguous or unsupported syntax fails. Local anchor fragments are unsupported and rejected rather than treated as verified. HTTPS targets are syntax-checked, not fetched. Gitleaks uses its default pattern rules on working-tree files and locally fetched Git history; it does not verify credentials with live services, certify owner-private disclosure safety, or guarantee detection of every secret. Hosted CI runs after upload and cannot replace a pre-publication review. These checks are repository validation tooling, not an installer or runtime integration.
+The documentation check enforces the [catalog's authoring contract](blueprints/README.md), catalog coverage, and local file links. It supports plain inline and explicit reference file links, fenced/inline code, and public-looking HTTPS targets; ambiguous or unsupported syntax fails. Local anchor fragments and angle-wrapped local destinations are unsupported and rejected rather than treated as verified. HTTPS targets are syntax-checked, not fetched.
+
+Use a clean checkout: local ignored/untracked files participate in validation, and symlinks are refused (including those in a local virtual environment). Gitleaks uses its default detector and path allowlists; some paths such as lockfiles, images, and paths containing `gitleaks.toml` remain excluded, including in history. The working-tree scan separately includes the root scanner-control files under safe staging names. It does not verify credentials with live services, certify owner-private disclosure safety, or guarantee detection of every secret. Hosted CI runs after upload and cannot replace a pre-publication review. These checks are repository validation tooling, not an installer or runtime integration.
 
 ## Scope
 

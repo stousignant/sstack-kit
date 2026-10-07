@@ -198,7 +198,9 @@ class SecretCheckDiagnostics(unittest.TestCase):
             existing.write_text("existing input must not be overwritten\n", encoding="ascii")
             self.assertFalse(check_secrets._copy_working_tree(root, Path(directory) / "copy"))
             self.assertEqual(existing.read_text(encoding="ascii"), "existing input must not be overwritten\n")
-            with mock.patch.dict(os.environ, {"TMPDIR": str(root)}):
+            with mock.patch.dict(os.environ, {"TMPDIR": str(root)}), mock.patch.object(
+                check_secrets, "_pinned_binary", side_effect=AssertionError("nested temp must fail before scanner check")
+            ):
                 self.assertEqual(check_secrets.scan(root, "working-tree", "/missing/scanner"), "error")
 
     def _fake_scanner(self, directory: str) -> Path:
@@ -268,6 +270,15 @@ class NativeGitleaksCanaries(unittest.TestCase):
             root = Path(directory) / "repo"
             root.mkdir()
             (root / ".gitleaksignore").write_text("GITHUB_TOKEN=" + self._synthetic_token() + "\n", encoding="ascii")
+            self.assertEqual(check_secrets.scan(root, "working-tree"), "finding")
+
+    def test_repository_config_file_content_is_scanned(self) -> None:
+        with _temp_root() as directory:
+            root = Path(directory) / "repo"
+            root.mkdir()
+            (root / ".gitleaks.toml").write_text(
+                'token = "' + self._synthetic_token() + '"\n', encoding="ascii"
+            )
             self.assertEqual(check_secrets.scan(root, "working-tree"), "finding")
 
     def test_deleted_diff_disabled_finding_remains_in_history(self) -> None:

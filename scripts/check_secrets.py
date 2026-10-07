@@ -52,10 +52,13 @@ def _copy_working_tree(source: Path, destination: Path) -> bool:
     try:
         shutil.copytree(source, destination, ignore=ignored, symlinks=True)
         # Rename repository controls so their contents are scanned, not loaded.
-        for name in (".gitleaks.toml", ".gitleaksignore"):
+        for name, scan_name in (
+            (".gitleaks.toml", "gitleaks-config.scan-input"),
+            (".gitleaksignore", ".gitleaksignore.scan-input"),
+        ):
             control = destination / name
             if control.exists():
-                renamed = destination / (name + ".scan-input")
+                renamed = destination / scan_name
                 if not control.is_file() or renamed.exists():
                     return False
                 control.rename(renamed)
@@ -111,7 +114,7 @@ def scan(root: Path, mode: str, binary: str | Path | None = None) -> str:
     try:
         source = root.resolve(strict=True)
         with tempfile.TemporaryDirectory(prefix="docs-ci-secrets-", dir=os.environ.get("TMPDIR")) as temp_name:
-            temp = Path(temp_name)
+            temp = Path(temp_name).resolve()
             if temp == source or source in temp.parents:
                 return "error"
             home = temp / "home"

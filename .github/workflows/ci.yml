@@ -10,7 +10,7 @@ permissions:
 
 concurrency:
   group: documentation-ci-${{ github.workflow }}-${{ github.ref }}
-  cancel-in-progress: true
+  cancel-in-progress: ${{ github.ref != 'refs/heads/main' }}
 
 jobs:
   validate:
@@ -43,7 +43,10 @@ jobs:
         env:
           GITLEAKS_BINARY: ${{ runner.temp }}/gitleaks
           TMPDIR: ${{ runner.temp }}
-        run: python3 -m unittest discover -s tests -v
+        run: |
+          set -euo pipefail
+          test -x "$GITLEAKS_BINARY"
+          python3 -m unittest discover -s tests -v
 
       - name: Validate documentation
         run: python3 scripts/check_docs.py
