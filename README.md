@@ -39,6 +39,19 @@ blueprints/
 
 Each recipe follows the same seven sections: Purpose, Inputs, Flow, Boundaries, Outputs, Adaptation, and Verification. Worked examples illustrate the design; they are not claims of an installed system or measured performance.
 
+## Contributor validation
+
+Run these checks from the repository root with Python 3.10+ and the Gitleaks 8.30.1 binary available locally:
+
+```sh
+python3 scripts/check_docs.py
+GITLEAKS_BINARY=/path/to/gitleaks python3 scripts/check_secrets.py --working-tree
+GITLEAKS_BINARY=/path/to/gitleaks python3 scripts/check_secrets.py --history
+GITLEAKS_BINARY=/path/to/gitleaks python3 -m unittest discover -s tests -v
+```
+
+The documentation check enforces the [catalog's authoring contract](blueprints/README.md), catalog coverage, and local file links. It supports inline and explicit reference links, fenced/inline code, and public-looking HTTPS targets; ambiguous or unsupported syntax fails. Local anchor fragments are unsupported and rejected rather than treated as verified. HTTPS targets are syntax-checked, not fetched. Gitleaks uses its default pattern rules on working-tree files and locally fetched Git history; it does not verify credentials with live services, certify owner-private disclosure safety, or guarantee detection of every secret. Hosted CI runs after upload and cannot replace a pre-publication review. These checks are repository validation tooling, not an installer or runtime integration.
+
 ## Scope
 
 The current kit is documentation-only. It does not include an installer, runtime integrations, credentials, scheduler configuration, or automated deployment. Choose those bindings in the environment that owns the work, and keep its privacy and approval rules intact.
