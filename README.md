@@ -1,10 +1,16 @@
 # SStack Kit
 
-Blueprints for building useful, evidence-backed agent workflows.
+Operating principles and blueprints for useful, evidence-backed agent work.
 
-This repository contains standalone design recipes: the problem a capability solves, its minimum components, important trade-offs, authority boundaries, and checks that show whether an adaptation works. They are intended for people and agents adapting a workflow to their own environment.
+This repository contains shared operating preferences and standalone workflow design recipes. The blueprints describe the problem a capability solves, its minimum components, important trade-offs, authority boundaries, and verification checks. Both are intended for deliberate adaptation to your own environment.
 
-**These are blueprints, not installable skills or live automations.** Nothing here grants permission to change systems, move data, spend money, or publish content.
+**This is guidance, not an installer, skill pack or live automation.** Nothing here grants permission to change systems, move data, spend money, or publish content.
+
+## Operating principles
+
+[CORE.md](principles/CORE.md) describes an opinionated way of working: communication, simple designs, bounded initiative, privacy, and delivery safety. It is a standalone instruction document, not a blueprint or competing agent framework.
+
+Read it and deliberately select or load the preferences that fit your work through your agent's supported instruction mechanism. Keep identity, environment bindings and actual permission grants separate. Loading this file does not authorize actions or override workplace or repository policy.
 
 ## Start here
 
@@ -31,13 +37,15 @@ An agent can use a blueprint as design context for a separately authorized imple
 ## Layout
 
 ```text
+principles/
+  CORE.md         Shared operating preferences, separate from blueprints
 blueprints/
   README.md       Detailed catalog and authoring contract
   skills/         On-demand capability designs
   automations/    Designs for scheduled or resumable workflows
 ```
 
-Each recipe follows the same seven sections: Purpose, Inputs, Flow, Boundaries, Outputs, Adaptation, and Verification. Worked examples illustrate the design; they are not claims of an installed system or measured performance.
+Each blueprint recipe follows the same seven sections: Purpose, Inputs, Flow, Boundaries, Outputs, Adaptation, and Verification. Worked examples illustrate the design; they are not claims of an installed system or measured performance.
 
 ## Contributor validation
 
