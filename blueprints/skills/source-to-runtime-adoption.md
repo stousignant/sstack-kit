@@ -32,6 +32,10 @@ If target, exclusions, ownership, or approval is unclear, stay read-only and rep
 4. Verify activation authority separately from its evidence; obtain approval if the intended instruction reload or new session is not already covered. Restarts and other operational changes need their own authorization. Use a safe independent method and verify loaded revision or affected behavior. Process health alone is insufficient.
 5. Cleanup also needs separate approval. Remove only known in-scope temporary artifacts; retain backups while rollback may be needed and record leftovers.
 
+### Preserve the local delta
+
+Before replacing a baseline, distinguish upstream source, intentional local behavior and transient state. Choose either a verified carry-forward candidate or deliberately clean adoption with recoverable local changes; do not silently discard them to avoid conflicts. Preserve exact prior state and intent, prove reconstruction or bounded restore, and verify affected behavior in isolation. An archival ref or mechanically clean replay alone does not prove recovery. The transition remains source-only until actual target authority exists.
+
 ### Synthetic example
 
 Suppose candidate B was merged and the installed target points to B, but the consumer still reports A or shows old behavior. Source and disk may be verified; runtime is not. Do not call B active. After authorized safe activation, check real affected behavior. On failure, follow the bounded rollback plan and verify it; if activation, observation, or rollback is uncertain, report that status as unknown or unproven. This is synthetic, not an executed deployment.
@@ -65,6 +69,7 @@ Choose the least invasive supported method. Keep mapping, reload semantics, and 
 Pressure-test the method against these cases:
 
 - **Source-only approval:** report source evidence without installing or activating the candidate.
+- **Unreconstructable local changes:** stop before replacement; preserving a name or archive file is not recovery proof.
 - **Unusable backup or unbounded restore:** stop before the first write rather than treating backup existence as rollback readiness.
 - **Omitted target:** reject plans that touch undeclared scope; leave targets unchanged.
 - **Stale consumer:** disk points to B while the consumer remains at A; runtime stays unproven until scoped authorized activation and real observation succeed.

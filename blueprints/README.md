@@ -21,6 +21,7 @@ On-demand capabilities:
 - [Bounded Context Retrieval](skills/bounded-context-retrieval.md)
 - [Configuration Drift Audit](skills/configuration-drift-audit.md)
 - [Customer Request to Testable Brief](skills/customer-request-to-testable-brief.md)
+- [Curated Private-to-Shared Projection](skills/curated-private-to-shared-projection.md)
 - [Evidence-Backed Agent Delivery](skills/evidence-backed-agent-delivery.md)
 - [Evidence-First Tool Evaluation](skills/evidence-first-tool-evaluation.md)
 - [Evidence-Led Capability Improvement](skills/evidence-led-capability-improvement.md)
@@ -28,6 +29,7 @@ On-demand capabilities:
 - [Owner-Mediated Index Visibility](skills/owner-mediated-index-visibility.md)
 - [Ownership-Aware Capability Consolidation](skills/ownership-aware-capability-consolidation.md)
 - [Provenance-First Knowledge Capture](skills/provenance-first-knowledge-capture.md)
+- [Repository Readiness and Refactor Assessment](skills/repository-readiness-and-refactor-assessment.md)
 - [Source-to-Runtime Adoption](skills/source-to-runtime-adoption.md)
 - [Untrusted-Input Boundary Design](skills/untrusted-input-boundary-design.md)
 
