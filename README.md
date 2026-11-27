@@ -49,7 +49,7 @@ Each blueprint recipe follows the same seven sections: Purpose, Inputs, Flow, Bo
 
 ## Contributor validation
 
-Run these checks from the repository root with Python 3.10+ and the Gitleaks 8.30.1 binary available locally:
+Run `just check` before opening a PR; it runs the same checks as CI. It requires [`just`](https://just.systems), Python 3.10+, and the Gitleaks 8.30.1 binary on `PATH` or in `GITLEAKS_BINARY`. `just test` runs only the tests. The underlying commands, run from the repository root:
 
 ```sh
 python3 scripts/check_docs.py
